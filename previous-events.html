@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Events - Sakshi Parashar | Professional Anchor & Singer Patna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --pink: #E91E63; --pink-light: #F06292;
+            --gold: #FFD700;
+            --bg: #0f0f1a; --bg2: #16213e; --bg-card: #1a1a2e;
+            --text: #ffffff; --text-muted: #94a3b8;
+            --border: rgba(255,215,0,0.2);
+        }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1rem 2rem; background: rgba(15,15,26,0.96); backdrop-filter: blur(12px); border-bottom: 2px solid var(--border); display: flex; align-items: center; justify-content: space-between; transition: all 0.3s; }
+        nav.scrolled { box-shadow: 0 8px 32px rgba(233,30,99,0.2); padding: 0.7rem 2rem; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; background: linear-gradient(45deg, var(--pink), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1.5px solid var(--border); padding: 0.5rem 1.2rem; border-radius: 30px; transition: all 0.3s; }
+        .nav-back:hover { background: rgba(255,215,0,0.1); border-color: var(--gold); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; }
+        .hamburger span { width: 22px; height: 2.5px; background: var(--gold); margin: 4px 0; border-radius: 2px; }
+        .mobile-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,15,26,0.98); padding: 1.5rem 2rem; border-bottom: 2px solid var(--border); z-index: 999; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { padding: 0.8rem 0; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
+        .mobile-menu a:hover { color: var(--gold); }
+
+        /* HERO */
+        .page-hero { padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(135deg, var(--bg), var(--bg2)); }
+        .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 20% 50%, rgba(233,30,99,0.1) 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 80% 50%, rgba(255,215,0,0.07) 0%, transparent 60%); pointer-events: none; }
+        .page-hero-label { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(255,215,0,0.35); padding: 0.4rem 1.2rem; border-radius: 30px; margin-bottom: 1.2rem; animation: glow 2.5s ease-in-out infinite; }
+        @keyframes glow { 0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.3)}50%{box-shadow:0 0 22px rgba(255,215,0,0.6),0 0 40px rgba(233,30,99,0.3)} }
+        .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem,6vw,4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+        .gradient-text { background: linear-gradient(135deg, var(--pink), var(--gold), var(--pink-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-hero p { font-size: 1rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 2.5rem; }
+
+        /* STATS */
+        .stats-bar { display: flex; justify-content: center; max-width: 640px; margin: 0 auto 1rem; border: 1.5px solid var(--border); border-radius: 50px; overflow: hidden; background: rgba(255,255,255,0.02); }
+        .stat-item { flex: 1; text-align: center; padding: 0.9rem 0.8rem; border-right: 1.5px solid var(--border); }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { font-family:'Playfair Display',serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); display: block; }
+        .stat-lbl { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* SECTION */
+        .section-wrap { max-width: 1280px; margin: 0 auto; padding: 3rem 2rem; }
+        .filter-wrap { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2.5rem; }
+        .filter-btn { padding: 0.5rem 1.2rem; border-radius: 30px; font-size: 0.82rem; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: transparent; color: var(--text-muted); transition: all 0.25s; }
+        .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .filter-btn.active { background: linear-gradient(135deg,var(--pink),#c2185b); border-color: transparent; color: white; box-shadow: 0 4px 20px rgba(233,30,99,0.4); }
+
+        .section-title { text-align: center; margin-bottom: 2.5rem; }
+        .section-title h2 { font-family:'Playfair Display',serif; font-size: clamp(1.6rem,4vw,2.4rem); font-weight: 700; margin-bottom: 0.4rem; }
+        .section-title p { color: var(--text-muted); font-size: 0.9rem; }
+        .title-line { width: 50px; height: 3px; margin: 0.7rem auto 0; background: linear-gradient(90deg,var(--pink),var(--gold)); border-radius: 3px; }
+
+        /* GALLERY GRID */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.4rem; }
+        .gallery-card { position: relative; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--border); cursor: pointer; background: var(--bg-card); transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+        .gallery-card:hover { transform: translateY(-6px); border-color: rgba(255,215,0,0.5); box-shadow: 0 16px 45px rgba(233,30,99,0.2); }
+        .gallery-card.hidden { display: none; }
+        .card-img-wrap { aspect-ratio: 3/2; overflow: hidden; position: relative; }
+        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.5s; }
+        .gallery-card:hover .card-img-wrap img { transform: scale(1.07); }
+        .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%); }
+        .card-badge { position: absolute; top: 10px; left: 10px; z-index: 2; padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .badge-wedding { background: rgba(233,30,99,0.9); color: white; }
+        .badge-corporate { background: rgba(33,150,243,0.9); color: white; }
+        .badge-birthday { background: rgba(255,152,0,0.9); color: white; }
+        .badge-cultural { background: rgba(156,39,176,0.9); color: white; }
+        .badge-college { background: rgba(0,150,136,0.9); color: white; }
+        .badge-sangeet { background: rgba(233,30,99,0.85); color: white; }
+        .zoom-icon { position: absolute; bottom: 10px; right: 10px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,215,0,0.9); color: #000; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; opacity: 0; transform: scale(0.6); transition: all 0.3s; }
+        .gallery-card:hover .zoom-icon { opacity: 1; transform: scale(1); }
+        .card-info { padding: 0.9rem 1.1rem 1.1rem; }
+        .card-title { font-family:'Playfair Display',serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .card-date { font-size: 0.76rem; color: var(--text-muted); }
+
+        /* HIGHLIGHT */
+        .highlight-banner { background: linear-gradient(135deg,rgba(233,30,99,0.08),rgba(255,215,0,0.05)); border: 1.5px solid var(--border); border-radius: 18px; padding: 2.5rem 2rem; text-align: center; margin: 3rem 0; }
+        .highlight-banner h3 { font-family:'Playfair Display',serif; font-size: 1.7rem; margin-bottom: 0.5rem; }
+        .highlight-banner p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.92rem; }
+        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 0.8rem 1.8rem; border-radius: 50px; font-size: 0.92rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; border: none; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg,var(--pink),var(--pink-light)); color: white; border: 2px solid var(--gold); box-shadow: 0 8px 25px rgba(233,30,99,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(233,30,99,0.5); }
+        .btn-secondary { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+        .btn-secondary:hover { background: rgba(255,215,0,0.1); transform: translateY(-2px); }
+
+        /* TESTIMONIALS */
+        .testimonials-strip { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1.4rem; }
+        .testi-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.4rem; position: relative; transition: all 0.3s; }
+        .testi-card:hover { border-color: rgba(255,215,0,0.35); transform: translateY(-4px); }
+        .testi-quote { font-size: 3rem; color: var(--gold); opacity: 0.12; position: absolute; top: -4px; left: 12px; font-family:'Playfair Display',serif; line-height: 1; }
+        .testi-stars { color: var(--gold); font-size: 0.82rem; margin-bottom: 0.4rem; }
+        .testi-text { color: var(--text-muted); font-size: 0.84rem; font-style: italic; margin-bottom: 0.9rem; line-height: 1.7; }
+        .testi-name { font-weight: 600; color: var(--pink-light); font-size: 0.88rem; }
+        .testi-event-type { font-size: 0.75rem; color: var(--gold); }
+
+        /* CTA + FOOTER */
+        .cta-section { background: linear-gradient(135deg,rgba(233,30,99,0.07),rgba(255,215,0,0.04)); border-top: 1.5px solid var(--border); padding: 3.5rem 2rem; text-align: center; }
+        .cta-section h2 { font-family:'Playfair Display',serif; font-size: clamp(1.6rem,4vw,2.3rem); margin-bottom: 0.6rem; }
+        .cta-section p { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.92rem; }
+        footer { background: var(--bg2); border-top: 2px solid var(--border); padding: 2rem; text-align: center; }
+        .footer-brand { font-family:'Playfair Display',serif; font-size: 1.3rem; font-weight: 900; background: linear-gradient(45deg,var(--pink),var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: 0.8rem 0; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        footer p { color: var(--text-muted); font-size: 0.82rem; }
+
+        /* LIGHTBOX */
+        .lightbox { display: none; position: fixed; z-index: 9999; inset: 0; background: rgba(0,0,0,0.97); flex-direction: column; align-items: center; justify-content: center; padding: 1rem; }
+        .lightbox.active { display: flex; }
+        .lb-close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1.5px solid var(--border); color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 2; }
+        .lb-close:hover { background: var(--pink); }
+        .lb-img-wrap { width: 100%; max-width: 95vw; max-height: 80vh; position: relative; overflow: hidden; border-radius: 12px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); }
+        .lb-img { width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 0; transition: opacity 0.35s; position: absolute; }
+        .lb-img.active { opacity: 1; }
+        .lb-info { width: 100%; max-width: 900px; padding: 0.6rem 0.2rem; }
+        .lb-name { font-family:'Playfair Display',serif; font-size: 0.95rem; font-weight: 600; }
+        .lb-controls { display: flex; align-items: center; gap: 0.9rem; margin-top: 0.4rem; }
+        .lb-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--gold); background: rgba(0,0,0,0.5); color: var(--gold); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .lb-btn:hover { background: var(--pink); border-color: var(--pink-light); color: white; }
+        .lb-dots { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; max-width: 260px; }
+        .lb-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.35); cursor: pointer; transition: all 0.3s; flex-shrink: 0; }
+        .lb-dot.active { background: var(--pink); border-color: var(--gold); transform: scale(1.3); }
+        .lb-counter { color: var(--gold); font-size: 0.88rem; font-weight: 600; min-width: 52px; text-align: center; }
+        .lb-progress { width: 100%; max-width: 900px; height: 3px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-top: 0.4rem; overflow: hidden; }
+        .lb-bar { height: 100%; background: linear-gradient(90deg,var(--pink),var(--gold)); border-radius: 3px; transition: width 0.3s; }
+
+        /* ANIM */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        @media(max-width:768px) {
+            .gallery-grid { grid-template-columns: repeat(2,1fr); gap: 0.9rem; }
+            .nav-back span { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(max-width:480px) { .gallery-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <a href="index.html" class="nav-brand">✨ SAKSHI</a>
+    <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="index.html" class="nav-back">← <span>Back to Home</span></a>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">🏠 Home</a>
+        <a href="index.html#about">👤 About</a>
+        <a href="index.html#services">🎯 Services</a>
+        <a href="index.html#contact">📞 Contact</a>
+    </div>
+</nav>
+
+<div class="page-hero">
+    <div class="page-hero-label">✦ Full Portfolio</div>
+    <h1><span class="gradient-text">Previous Events</span></h1>
+    <p>18 memorable performances — weddings, sangeet, corporate, cultural celebrations & more.</p>
+    <div class="stats-bar">
+        <div class="stat-item"><span class="stat-num">500+</span><span class="stat-lbl">Events</span></div>
+        <div class="stat-item"><span class="stat-num">10+</span><span class="stat-lbl">Years</span></div>
+        <div class="stat-item"><span class="stat-num">5.0⭐</span><span class="stat-lbl">Rating</span></div>
+        <div class="stat-item"><span class="stat-num">18</span><span class="stat-lbl">Photos</span></div>
+    </div>
+</div>
+
+<div class="section-wrap">
+    <div class="filter-wrap">
+        <button class="filter-btn active" data-filter="all">🎯 All</button>
+        <button class="filter-btn" data-filter="wedding">💍 Wedding</button>
+        <button class="filter-btn" data-filter="sangeet">🎵 Sangeet</button>
+        <button class="filter-btn" data-filter="corporate">🏢 Corporate</button>
+        <button class="filter-btn" data-filter="birthday">🎂 Birthday</button>
+        <button class="filter-btn" data-filter="cultural">🎭 Cultural</button>
+        <button class="filter-btn" data-filter="college">🎓 College</button>
+    </div>
+
+    <div class="section-title fade-in">
+        <h2>All <span class="gradient-text">Performances</span></h2>
+        <p>Click any photo to view full size with navigation</p>
+        <div class="title-line"></div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-card fade-in" data-category="wedding" onclick="openLb(0)">
+            <div class="card-img-wrap"><img src="https://img.youtube.com/vi/CM-A4m37vVw/maxresdefault.jpg" alt="Video" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-wedding">🎥 Video</span><div class="zoom-icon">▶️</div></div>
+            <div class="card-info"><div class="card-title">Performance Video</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="sangeet" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/FHKzC4Xb/IMG-20260328-WA0003.jpg" alt="Event 2" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-sangeet">🎵 Sangeet</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Sangeet & Dance Night</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="cultural" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/13zX7Q1B/IMG-20260328-WA0004.jpg" alt="Event 3" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-cultural">🎭 Cultural</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Cultural Evening Program</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="wedding" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/kg5GYmPT/IMG-20260328-WA0005.jpg" alt="Event 4" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-wedding">💍 Wedding</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Royal Wedding Reception</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="corporate" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/mgrkpsWX/IMG-20260328-WA0006.jpg" alt="Event 5" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-corporate">🏢 Corporate</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Corporate Annual Gala</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="birthday" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/g20jtWbt/IMG-20260328-WA0007.jpg" alt="Event 6" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-birthday">🎂 Birthday</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Grand Birthday Celebration</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="wedding" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/g2BJfTGv/IMG-20260328-WA0008.jpg" alt="Event 7" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-wedding">💍 Wedding</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Wedding Ceremony Hosting</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="cultural" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/PqYYfMCp/Sakshi-02.jpg" alt="Event 8" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-cultural">🎭 Cultural</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Haldi Ceremony</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="sangeet" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/dVS1zxJj/IMG-20260328-WA0011.jpg" alt="Event 9" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-sangeet">🎵 Sangeet</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Mehendi Sangeet Night</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="college" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/qvZR95pQ/IMG-20260328-WA0012.jpg" alt="Event 10" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-college">🎓 College</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">College Annual Farewell</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna University</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="wedding" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/6p13DmBP/IMG-20260328-WA0013.jpg" alt="Event 11" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-wedding">💍 Wedding</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Wedding Celebration Evening</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="corporate" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/x1d8p2Vz/IMG-20260328-WA0014.jpg" alt="Event 12" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-corporate">🏢 Corporate</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Corporate Award Night</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="birthday" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/MpGH3SJB/IMG-20260328-WA0015.jpg" alt="Event 13" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-birthday">🎂 Birthday</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Special Birthday Party</div><div class="card-date">📅 2026 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="cultural" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/Nj0FCcvR/IMG-20260328-WA0016.jpg" alt="Event 14" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-cultural">🎭 Cultural</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Diwali Cultural Evening</div><div class="card-date">📅 2025 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="sangeet" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/rwpsZk2x/IMG-20260328-WA0017.jpg" alt="Event 15" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-sangeet">🎵 Sangeet</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Sangeet Ceremony Live</div><div class="card-date">📅 2025 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="wedding" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/VkH63Vzx/IMG-20260328-WA0018.jpg" alt="Event 16" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-wedding">💍 Wedding</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Bridal Ceremony Hosting</div><div class="card-date">📅 2025 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="college" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/K8szdHZX/IMG-20260328-WA0019.jpg" alt="Event 17" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-college">🎓 College</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Youth Festival Program</div><div class="card-date">📅 2025 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+        <div class="gallery-card fade-in" data-category="cultural" onclick="openLb(18)">
+            <div class="card-img-wrap"><img src="https://i.postimg.cc/T3HwZ4TZ/IMG-20260328-WA0020.jpg" alt="Event 18" loading="lazy"><div class="card-overlay"></div><span class="card-badge badge-cultural">🎭 Cultural</span><div class="zoom-icon">🔍</div></div>
+            <div class="card-info"><div class="card-title">Grand Cultural Festival</div><div class="card-date">📅 2025 &nbsp;|&nbsp; 📍 Patna, Bihar</div></div>
+        </div>
+    </div>
+
+    <div class="highlight-banner fade-in">
+        <h3><span class="gradient-text">Book Sakshi for Your Event</span></h3>
+        <p>From intimate ceremonies to grand celebrations — every event deserves the magic of a professional anchor & singer.</p>
+        <div class="btn-group">
+            <a href="tel:+918409562978" class="btn btn-primary">📞 Call Now</a>
+            <a href="https://wa.me/918409562978" target="_blank" class="btn btn-secondary">💬 WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<div style="background:rgba(255,255,255,0.01);border-top:1px solid var(--border);">
+<div class="section-wrap">
+    <div class="section-title fade-in">
+        <h2>Client <span class="gradient-text">Reviews</span></h2>
+        <p>What people say after working with Sakshi</p>
+        <div class="title-line"></div>
+    </div>
+    <div class="testimonials-strip">
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">Sakshi was absolutely fantastic at our wedding! Her energy made the entire evening unforgettable.</p><div class="testi-name">Priya & Rahul Sharma</div><div class="testi-event-type">💍 Wedding Reception</div></div>
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">Professional, punctual, and incredibly engaging. Delivered beyond our expectations!</p><div class="testi-name">Rohit Verma</div><div class="testi-event-type">🏢 Corporate Function</div></div>
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">Her voice is amazing and she was so cooperative. Perfect for our sangeet night!</p><div class="testi-name">Neha Singh</div><div class="testi-event-type">🎵 Sangeet Ceremony</div></div>
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">Made our college farewell an unforgettable experience. Highly talented!</p><div class="testi-name">College Fest Committee</div><div class="testi-event-type">🎓 College Farewell</div></div>
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">My daughter's birthday was a hit! All guests were entertained throughout.</p><div class="testi-name">Mrs. Sharma</div><div class="testi-event-type">🎂 Birthday Celebration</div></div>
+        <div class="testi-card fade-in"><div class="testi-quote">"</div><div class="testi-stars">⭐⭐⭐⭐⭐</div><p class="testi-text">We regularly book Sakshi for our events. Her passion shines through every performance!</p><div class="testi-name">Event Management Co.</div><div class="testi-event-type">🎯 Regular Partner</div></div>
+    </div>
+</div>
+</div>
+
+<div class="cta-section">
+    <h2><span class="gradient-text">Ready to Create Magic?</span></h2>
+    <p>Book Sakshi for your next event and make it truly unforgettable.</p>
+    <div class="btn-group">
+        <a href="tel:+918409562978" class="btn btn-primary">📞 Call Now</a>
+        <a href="https://wa.me/918409562978" target="_blank" class="btn btn-secondary">💬 WhatsApp</a>
+        <a href="index.html" class="btn btn-secondary">🏠 Home</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-brand">✨ SAKSHI PARASHAR</div>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+    <p>📍 Saguna More, Patna, Bihar &nbsp;|&nbsp; 📞 +91 84095 62978</p>
+    <p style="margin-top:0.6rem;">© 2025 Sakshi Parashar. All rights reserved. Made with ❤️</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <div class="lb-img-wrap" id="lbWrap"></div>
+    <iframe id="lbVideo" style="display:none; width:100%; max-width:95vw; max-height:80vh; border-radius:12px; border:1.5px solid var(--border); background:rgba(0,0,0,0.5);" allowfullscreen></iframe>
+    <div class="lb-info"><div class="lb-name" id="lbName"></div></div>
+    <div class="lb-controls">
+        <button class="lb-btn" onclick="lbPrev()">&#8592;</button>
+        <div class="lb-dots" id="lbDots"></div>
+        <div class="lb-counter" id="lbCounter">01 / 18</div>
+        <button class="lb-btn" onclick="lbNext()">&#8594;</button>
+    </div>
+    <div class="lb-progress"><div class="lb-bar" id="lbBar"></div></div>
+</div>
+
+<script>
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40); });
+document.getElementById('hamburger').addEventListener('click', () => { document.getElementById('mobileMenu').classList.toggle('active'); });
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.gallery-card').forEach(card => {
+            card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
+        });
+    });
+});
+
+const lbData = [
+    {src:'https://www.youtube.com/embed/CM-A4m37vVw?autoplay=1&mute=1',name:'Performance Video',type:'video'},
+    {src:'https://i.postimg.cc/y8NxpHCm/IMG-20260328-WA0002.jpg',name:'Grand Wedding Ceremony',type:'image'},
+    {src:'https://i.postimg.cc/FHKzC4Xb/IMG-20260328-WA0003.jpg',name:'Sangeet & Dance Night',type:'image'},
+    {src:'https://i.postimg.cc/13zX7Q1B/IMG-20260328-WA0004.jpg',name:'Cultural Evening Program'},
+    {src:'https://i.postimg.cc/kg5GYmPT/IMG-20260328-WA0005.jpg',name:'Royal Wedding Reception'},
+    {src:'https://i.postimg.cc/mgrkpsWX/IMG-20260328-WA0006.jpg',name:'Corporate Annual Gala'},
+    {src:'https://i.postimg.cc/g20jtWbt/IMG-20260328-WA0007.jpg',name:'Grand Birthday Celebration'},
+    {src:'https://i.postimg.cc/g2BJfTGv/IMG-20260328-WA0008.jpg',name:'Wedding Ceremony Hosting'},
+    {src:'https://i.postimg.cc/PqYYfMCp/Sakshi-02.jpg',name:'Cultural Performance'},
+    {src:'https://i.postimg.cc/dVS1zxJj/IMG-20260328-WA0011.jpg',name:'Mehendi Sangeet Night'},
+    {src:'https://i.postimg.cc/qvZR95pQ/IMG-20260328-WA0012.jpg',name:'College Annual Farewell'},
+    {src:'https://i.postimg.cc/6p13DmBP/IMG-20260328-WA0013.jpg',name:'Wedding Celebration Evening'},
+    {src:'https://i.postimg.cc/x1d8p2Vz/IMG-20260328-WA0014.jpg',name:'Corporate Award Night'},
+    {src:'https://i.postimg.cc/MpGH3SJB/IMG-20260328-WA0015.jpg',name:'Special Birthday Party'},
+    {src:'https://i.postimg.cc/Nj0FCcvR/IMG-20260328-WA0016.jpg',name:'Diwali Cultural Evening'},
+    {src:'https://i.postimg.cc/rwpsZk2x/IMG-20260328-WA0017.jpg',name:'Sangeet Ceremony Live'},
+    {src:'https://i.postimg.cc/VkH63Vzx/IMG-20260328-WA0018.jpg',name:'Bridal Ceremony Hosting'},
+    {src:'https://i.postimg.cc/K8szdHZX/IMG-20260328-WA0019.jpg',name:'Youth Festival Program'},
+    {src:'https://i.postimg.cc/T3HwZ4TZ/IMG-20260328-WA0020.jpg',name:'Grand Cultural Festival'},
+];
+let lbIdx = 0;
+const lbWrapEl = document.getElementById('lbWrap');
+const lbDotsEl = document.getElementById('lbDots');
+const lbVideoEl = document.getElementById('lbVideo');
+lbData.forEach((item, i) => {
+    if(item.type === 'video') {
+        const dot = document.createElement('div');
+        dot.className = 'lb-dot'+(i===0?' active':'');
+        dot.onclick = () => goLb(i);
+        lbDotsEl.appendChild(dot);
+    } else {
+        const img = document.createElement('img');
+        img.className = 'lb-img'+(i===0?' active':'');
+        img.src = item.src; img.alt = item.name;
+        lbWrapEl.appendChild(img);
+        const dot = document.createElement('div');
+        dot.className = 'lb-dot'+(i===0?' active':'');
+        dot.onclick = () => goLb(i);
+        lbDotsEl.appendChild(dot);
+    }
+});
+function updateLb() {
+    const current = lbData[lbIdx];
+    if(current.type === 'video') {
+        lbWrapEl.style.display = 'none';
+        lbVideoEl.style.display = 'block';
+        lbVideoEl.src = current.src;
+    } else {
+        lbWrapEl.style.display = 'block';
+        lbVideoEl.style.display = 'none';
+        document.querySelectorAll('.lb-img').forEach((el,i) => el.classList.toggle('active',i===lbIdx));
+    }
+    document.querySelectorAll('.lb-dot').forEach((el,i) => el.classList.toggle('active',i===lbIdx));
+    document.getElementById('lbName').textContent = current.name;
+    document.getElementById('lbCounter').textContent = String(lbIdx+1).padStart(2,'0')+' / '+String(lbData.length).padStart(2,'0');
+    document.getElementById('lbBar').style.width = ((lbIdx+1)/lbData.length*100)+'%';
+}
+function goLb(i){lbIdx=i;updateLb();}
+function lbNext(){lbIdx=(lbIdx+1)%lbData.length;updateLb();}
+function lbPrev(){lbIdx=(lbIdx-1+lbData.length)%lbData.length;updateLb();}
+function openLb(i){lbIdx=i;updateLb();document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
+function closeLb(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';document.getElementById('lbVideo').src='';}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLb();});
+document.addEventListener('keydown',e=>{
+    if(!document.getElementById('lightbox').classList.contains('active'))return;
+    if(e.key==='ArrowRight')lbNext();
+    if(e.key==='ArrowLeft')lbPrev();
+    if(e.key==='Escape')closeLb();
+});
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
